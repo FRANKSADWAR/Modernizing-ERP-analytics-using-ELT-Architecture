@@ -50,3 +50,8 @@ CREATE TABLE IF NOT EXISTS visit_history AS (
     FOREIGN_KEY(channel_id) REFERENCES channels(channel_id),
     FOREIGN_KEY(customer_id) REFERENCES customers(customer_id)
 );
+
+SHOW FULL TABLES WHERE table_type = "BASE TABLE";
+-- Table type for created tables is BASE TABLE
+-- Table type for VIEWS is VIEW
+-- Table type for information schema is SYSTEM VIEW
