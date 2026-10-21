@@ -1,3 +1,6 @@
 data/
 *.parquet
 *.env
+.kilo/
+__pycache__/
+*.pyc
