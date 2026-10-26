@@ -39,3 +39,4 @@ SELECT
     total_books
 
 FROM books_counts
+

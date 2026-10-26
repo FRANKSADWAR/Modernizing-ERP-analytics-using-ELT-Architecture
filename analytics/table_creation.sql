@@ -55,3 +55,4 @@ SHOW FULL TABLES WHERE table_type = "BASE TABLE";
 -- Table type for created tables is BASE TABLE
 -- Table type for VIEWS is VIEW
 -- Table type for information schema is SYSTEM VIEW
+
