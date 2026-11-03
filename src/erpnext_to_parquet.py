@@ -1,3 +1,4 @@
+from ast import List
 import os
 import json
 import logging
@@ -10,6 +11,7 @@ from sqlalchemy.pool import QueuePool
 from config import TABLE_LIST
 import pandas as pd
 from pathlib import Path
+import sqlalchemy.engine as Engine
 
 
 
@@ -66,3 +68,10 @@ def test_extract_query(outpath, compression="snappy"):
         extraction_date = datetime.strftime(datetime.now(), "%Y_%m_%d_%H_%M_%S")
         
         df_test.to_parquet(test_path / f"purchase_invoices_{extraction_date}", compression=compression)
+
+
+def extract_from_erp(engine: Engine, table_list: List):
+    table_names = table_list
+    assert len(table_names) > 0
+
+    engine = get_engine()
