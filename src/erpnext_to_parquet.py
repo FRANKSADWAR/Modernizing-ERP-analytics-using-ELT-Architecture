@@ -15,7 +15,7 @@ from pathlib import Path
 
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 logger = logging.getLogger(__name__)
-test_data_folder = "../data/"
+test_data_folder = "../data"
 test_path = Path(test_data_folder)
 
 def get_connection_details():
@@ -63,6 +63,6 @@ def test_extract_query(outpath, compression="snappy"):
 
     with mysql_engine.connect() as connection:
         df_test = pd.read_sql(query, connection)
-        extraction_date = datetime.strftime(datetime.now(), "%Y-%m-%d %HH:%MM:%SS")
+        extraction_date = datetime.strftime(datetime.now(), "%Y_%m_%d_%H_%M_%S")
         
-        df_test.to_parquet(outpath/"purchase_invoices_"{extraction_date}, compression=compression)
+        df_test.to_parquet(test_path / f"purchase_invoices_{extraction_date}", compression=compression)
