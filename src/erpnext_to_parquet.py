@@ -64,6 +64,9 @@ def extract_from_erp(engine: Engine, table_list: List):
         ## We need to have a sub-directory for every table
         os.makedirs(table_folder, exist_ok=True)
 
+        logging.info(f"Extracting data from tab{table} .....")
+        extraction_date_time = datetime.strftime(datetime.now(), "")
+
 
 
 
