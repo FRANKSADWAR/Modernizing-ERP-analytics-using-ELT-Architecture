@@ -50,6 +50,24 @@ def get_engine():
     return mysql_engine
 
 
+
+
+def extract_from_erp(engine: Engine, table_list: List):
+    table_names = table_list
+    assert len(table_names) > 0
+    engine = get_engine()
+    for table in table_names:
+        select_query = text(f""" SELECT * FROM `tab{table}`""")
+        clean_table_name = table.replace(" ","")
+        table_folder = f"data/{clean_table_name}"
+
+        ## We need to have a sub-directory for every table
+
+
+
+
+
+
 def test_extract_query(outpath, compression="snappy"):
     mysql_engine = get_engine()
     print(mysql_engine)
@@ -69,14 +87,6 @@ def test_extract_query(outpath, compression="snappy"):
         logging.info("Finshed extracting data, saving data to file ....")
         
         df_test.to_parquet(outpath / f"purchase_invoices_{extraction_date}.parquet", compression=compression)
-
-
-def extract_from_erp(engine: Engine, table_list: List):
-    table_names = table_list
-    assert len(table_names) > 0
-
-    engine = get_engine()
-
 
 
 if __name__ == "__main__":
