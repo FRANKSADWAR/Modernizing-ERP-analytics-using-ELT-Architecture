@@ -6,7 +6,7 @@ from dotenv import load_dotenv
 import pyarrow.parquet as pq
 import pyarrow as pa
 from datetime import datetime
-from sqlalchemy import create_engine, text
+from sqlalchemy import create_engine, exists, text
 from sqlalchemy.pool import QueuePool
 from config import TABLE_LIST
 import pandas as pd
@@ -62,6 +62,7 @@ def extract_from_erp(engine: Engine, table_list: List):
         table_folder = f"data/{clean_table_name}"
 
         ## We need to have a sub-directory for every table
+        os.makedirs(table_folder, exist_ok=True)
 
 
 
