@@ -17,8 +17,7 @@ import sqlalchemy.engine as Engine
 
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 logger = logging.getLogger(__name__)
-test_data_folder = "../data"
-test_path = Path(test_data_folder)
+
 
 def get_connection_details():
     load_dotenv(".env")
@@ -53,7 +52,7 @@ def get_engine():
 
 def test_extract_query(outpath, compression="snappy"):
     mysql_engine = get_engine()
-
+    print(mysql_engine)
     query = text("""SELECT 
                     name, 
                     supplier, 
@@ -64,10 +63,12 @@ def test_extract_query(outpath, compression="snappy"):
                     AND YEAR(posting_date) = 2026 """)
 
     with mysql_engine.connect() as connection:
+        logging.info("Extracting data from purchase invoices ...")
         df_test = pd.read_sql(query, connection)
         extraction_date = datetime.strftime(datetime.now(), "%Y_%m_%d_%H_%M_%S")
+        logging.info("Finshed extracting data, saving data to file ....")
         
-        df_test.to_parquet(test_path / f"purchase_invoices_{extraction_date}", compression=compression)
+        df_test.to_parquet(outpath / f"purchase_invoices_{extraction_date}.parquet", compression=compression)
 
 
 def extract_from_erp(engine: Engine, table_list: List):
@@ -75,3 +76,9 @@ def extract_from_erp(engine: Engine, table_list: List):
     assert len(table_names) > 0
 
     engine = get_engine()
+
+
+
+if __name__ == "__main__":
+    get_engine()
+
